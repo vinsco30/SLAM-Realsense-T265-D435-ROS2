@@ -1,0 +1,78 @@
+FROM osrf/ros:foxy-desktop
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    ROS2_DISTRO=foxy
+
+WORKDIR /root
+
+# Update and install tools
+RUN apt-get update && apt-get install -y --no-install-recommends \   
+    git \
+    bash-completion \
+    gedit \
+    locales \
+    software-properties-common \
+    curl \
+    gnupg \
+    lsb-release \
+    python3-pip \
+    wget \
+    nano \
+    && locale-gen en_US en_US.UTF-8 \
+    && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
+    && add-apt-repository universe \
+    && pip install symforce
+
+
+RUN apt update && apt-get install -y --no-install-recommends \ 
+    && echo "source /opt/ros/$ROS2_DISTRO/setup.bash" >> .bashrc \
+    #&& source ~/.bashrc \
+    libeigen3-dev \
+    libboost-all-dev \
+    libceres-dev
+
+RUN apt update && apt-get install -y --no-install-recommends \     
+    libcanberra-gtk-module libcanberra-gtk3-module
+
+RUN apt update && apt-get install -y --no-install-recommends \
+    ros-$ROS2_DISTRO-plotjuggler-ros \
+    ros-$ROS2_DISTRO-realsense2-camera
+
+RUN apt purge -y --no-install-recommends ros-$ROS2_DISTRO-realsense2-camera
+
+# # ROS2 workspace
+
+RUN mkdir -p ~/ros2_ws/src \
+    && cd ~/ros2_ws/src \
+    && git clone --single-branch -b prisma-ros2 https://github.com/vinsco30/realsense-ros.git \
+    && cd .. \	
+    && . /opt/ros/$ROS2_DISTRO/setup.sh \
+    && colcon build
+
+
+# Additional packages
+RUN apt update && apt install -y --no-install-recommends \    
+    aptitude \
+    tmux \
+    tmuxp 
+
+COPY tmux.conf .tmux.conf
+
+# # PX4-Autopilot to fix git submodule update
+
+RUN  git config --global --add safe.directory '*'
+USER root
+
+# DDS installation
+RUN apt update && apt-get install -y --no-install-recommends \ 
+    ros-$ROS2_DISTRO-rmw-cyclonedds-cpp \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+RUN apt update && apt-get install -y --no-install-recommends \ 
+    ros-$ROS2_DISTRO-octomap-rviz-plugins  \ 
+    && rm -rf /var/lib/apt/lists/*
+
