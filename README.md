@@ -1,4 +1,4 @@
-# Docker for RealSense T265 for ROS2
+# Docker for RealSense T265 for ROS2 + Localization 
 Compiling the docker file, it is possible to use the Realsense T265 with ROS2. 
 The container will run ROS2 Foxy but the implementation of the CycloneDDS allows to share the topics
 with ROS2 Humble too. 
@@ -35,5 +35,17 @@ Once the container is running, source the workspace,
 Now you can plug the T265 cam and run the node,
 
         $ ros2 launch realsense2_camera rs_t265_launch.py $
+
+If you want to run T265 + D435, run,
+
+        $ ros2 launch relasense2_camera rs_d400_and_t265_launch.py $
+
+P.S. Modify the `tf_static_publisher` in the launch file for your cameras configurations
+
+Launch the SLAM node,
+
+        $ ros2 launch realsense2_camera rtabmap.launch.py $
+
+
 
 ### TODO: lighten up the image

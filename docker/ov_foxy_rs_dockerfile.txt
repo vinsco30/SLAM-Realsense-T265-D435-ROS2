@@ -47,6 +47,9 @@ RUN apt update && apt-get install -y --no-install-recommends \
     ros-$ROS2_DISTRO-rmw-cyclonedds-cpp \
     && rm -rf /var/lib/apt/lists/*
 
-ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
+    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/liboctomap.so 
 
 
