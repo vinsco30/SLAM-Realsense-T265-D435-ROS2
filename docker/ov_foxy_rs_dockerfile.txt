@@ -14,18 +14,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bash-completion \
     locales \
     software-properties-common \
-    lsb-release \
     && locale-gen en_US en_US.UTF-8 \
     && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
     && add-apt-repository universe 
-
 RUN apt update && apt-get install -y --no-install-recommends \ 
     && echo "source /opt/ros/$ROS2_DISTRO/setup.bash" >> .bashrc 
 
 
 RUN apt update && apt-get install -y --no-install-recommends \
+    lsb-release \
     ros-$ROS2_DISTRO-plotjuggler-ros \
-    ros-$ROS2_DISTRO-realsense2-camera
+    ros-$ROS2_DISTRO-realsense2-camera \
+    ros-$ROS2_DISTRO-octomap-rviz-plugins \
+    ros-$ROS2_DISTRO-rtabmap-ros
 
 RUN apt purge -y --no-install-recommends ros-$ROS2_DISTRO-realsense2-camera
 
