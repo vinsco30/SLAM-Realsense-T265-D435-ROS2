@@ -28,11 +28,7 @@ A step by step series of examples that tell you how to get a development environ
 
 ## Running the Realsense node
 
-Once the container is running, source the workspace,
-
-        $ . ros2_ws/install/local_setup.bash $
-
-Now you can plug the T265 cam and run the node,
+You can plug the T265 cam and run the node,
 
         $ ros2 launch realsense2_camera rs_t265_launch.py $
 

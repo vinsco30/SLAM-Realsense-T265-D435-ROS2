@@ -25,6 +25,7 @@ RUN apt update && apt-get install -y --no-install-recommends \
     lsb-release \
     ros-$ROS2_DISTRO-plotjuggler-ros \
     ros-$ROS2_DISTRO-realsense2-camera \
+    ros-$ROS2_DISTRO-octomap-* \
     ros-$ROS2_DISTRO-octomap-rviz-plugins \
     ros-$ROS2_DISTRO-rtabmap-ros
 
@@ -49,7 +50,11 @@ RUN apt update && apt-get install -y --no-install-recommends \
 
 
 
-ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
-    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/liboctomap.so 
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+RUN echo "source ros2_ws/install/local_setup.bash" >> .bashrc 
+
+
+
 
 
