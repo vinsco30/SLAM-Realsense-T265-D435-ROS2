@@ -10,7 +10,7 @@ with ROS2 Humble too.
 
 - **`ros2_ws-src` folder:** This folder should contain the source code for the ROS2 workspace. The Docker container comes pre-loaded with a custom version of `realsense-ros` package where the QoS of the output topics are already set as `BEST_EFFORT`.
 
-- **`ROS_DOMAIN_ID`:** it is set by default as 69, you can change it in the dockerfile before building the image.
+- **`ROS_DOMAIN_ID`:** it is set by default as 68, you can change it in the dockerfile before building the image.
 
 ### Prerequisites
 
@@ -41,6 +41,13 @@ P.S. Modify the `tf_static_publisher` in the launch file for your cameras config
 Launch the SLAM node,
 
         $ ros2 launch realsense2_camera rtabmap.launch.py $
+
+## Running on the drone
+If you want to run the camera configuration on your drone, there is the ad-hoc launch file
+
+        $ ros2 launch realsense2_camera rs_d400_and_t265_drone_launch.py $
+
+in this way you can launch your tf configuration for your robot, using for example the repository [Odometry launch package](https://github.com/vinsco30/odometry-launch-pkg)
 
 
 
