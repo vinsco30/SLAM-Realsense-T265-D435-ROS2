@@ -30,22 +30,22 @@ A step by step series of examples that tell you how to get a development environ
 
 You can plug the T265 cam and run the node,
 
-        $ ros2 launch realsense2_camera rs_t265_launch.py $
+        ros2 launch realsense2_camera rs_t265_launch.py 
 
 If you want to run T265 + D435, run,
 
-        $ ros2 launch relasense2_camera rs_d400_and_t265_launch.py $
+        ros2 launch realsense2_camera rs_d400_and_t265_launch.py
 
 P.S. Modify the `tf_static_publisher` in the launch file for your cameras configurations
 
 Launch the SLAM node,
 
-        $ ros2 launch realsense2_camera rtabmap.launch.py $
+        ros2 launch realsense2_camera rtabmap.launch.py 
 
 ## Running on the drone
 If you want to run the camera configuration on your drone, there is the ad-hoc launch file
 
-        $ ros2 launch realsense2_camera rs_d400_and_t265_drone_launch.py $
+        ros2 launch realsense2_camera rs_d400_and_t265_drone_launch.py 
 
 in this way you can launch your tf configuration for your robot, using for example the repository [Odometry launch package](https://github.com/vinsco30/odometry-launch-pkg)
 
